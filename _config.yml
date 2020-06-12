@@ -28,7 +28,7 @@ navigation:
 
 external:                    # see http://fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "mailto:abaltra@gmail.com"}
-  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
+  - {title: Github, icon: github, url: "https://github.com/abaltra"}
   - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
 comments:
