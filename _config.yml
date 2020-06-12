@@ -30,6 +30,7 @@ external:                    # see http://fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "mailto:abaltra@gmail.com"}
   - {title: Github, icon: github, url: "https://github.com/abaltra"}
   - {title: Subscribe, icon: rss, url: "/feed.xml"}
+  - {title: Twitter, icon: twitter, url: "https://www.twitter.com/alejandrobaltra"}
 
 comments:
 #  disqus_shortname: ""      # see https://disqus.com/
