@@ -24,6 +24,7 @@
 {% if site.comments.isso_domain and page.layout == "post" %}<script data-isso="http://{{ site.comments.isso_domain }}" src="//{{ site.comments.isso_domain }}/js/embed.min.js"></script>{% endif %}
 
 <header class="icons">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   {% unless site.show_title != true and site.navigation and site.external %}
     <a href="{{ "/" | relative_url }}" class="title">{{ site.title | escape }}</a>
   {% endunless %}
