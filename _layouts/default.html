@@ -26,7 +26,6 @@
 
 <header class="icons">
   {% unless site.show_title != true and site.navigation and site.external %}
-    <a href="https://www.abaltra.me" class="title">Home</a>
     <a href="{{ "/" | relative_url }}" class="title">{{ site.title | escape }}</a>
   {% endunless %}
   {% if site.navigation or site.external %}
