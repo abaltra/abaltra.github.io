@@ -1,4 +1,4 @@
-title: "I ramble"
+title: "@abaltra"
 author: "Alejandro Baltra"
 description: "Made with <b style=\"color: #f45;\">&lt;3</b> by <b><a href=\"https://github.com/niklasbuschmann\">@niklasbuschmann</a></b>"
 permalink: /:title/
@@ -26,9 +26,9 @@ navigation:
   - {file: "README.md", icon: address-card}
 
 external:                    # see http://fontawesome.com/icons
-#  - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
-#  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
-#  - {title: Subscribe, icon: rss, url: "/feed.xml"}
+  - {title: Mail, icon: envelope, url: "mailto:abaltra@gmail.com"}
+  - {title: Github, icon: github, url: "https://github.com/abaltra"}
+  - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
 comments:
 #  disqus_shortname: ""      # see https://disqus.com/
