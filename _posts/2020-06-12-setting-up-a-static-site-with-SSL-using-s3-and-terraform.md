@@ -3,14 +3,19 @@ title: "Setting up your HTTPS website with S3, Cloudfront, Certificates Manager 
 layout: post
 ---
 
-
 Amazon's Simple Storage Service (s3) is probably one of the best, most stable services they provide (not throwing shade on the rest, s3 is just that good) and I would love to be able to use its 11 9s of availability to host my site. I would also like to use HTTPS because I'm a good boy scout and managing everything through Terraform because the command line is my jam. Are you on the same boat? Boy do I have a post for you then.
-First thing is making sure we have all the tools we need. Make sure you've downloaded Terraform, installed the AWS CLI and set it up correctly. You will also need an AWS account (duh) and a GoDaddy one. If you just want the end result, all the source code is in my Github.
-Now that we have everything we need, let's get our hands dirty.
-I'll use my personal site as a demo, don't judge it too hard please.
-![Cover the pain with memes. Never fails.](/assets/images/2020-06-12/gdesign.png)
+First thing is making sure we have all the tools we need. Make sure you've [downloaded Terraform](https://www.terraform.io/downloads.html), installed the [AWS CLI](https://aws.amazon.com/cli/) and set it up correctly. You will also need an AWS account (duh) and a [GoDaddy](https://www.godaddy.com/) one. If you just want the end result, all the source code is in my [Github](https://github.com/abaltra/abaltra.me).
 
-Cover the pain with memes. Never fails.Our project will have 2 folders in the root: site/ and terraform/. We'll structure the folder for the site in the following way inside the site/ folder: png/, pdf/, css/, js/ ico/ and in the root, there's only the index.html. There's a reason for this, but we'll get into it later. The contents of the site don't really matter for this tutorial, but here's a capture of how my structure looks after everything we've mentioned:
+Now that we have everything we need, let's get our hands dirty.
+
+I'll [use my personal site as a demo](https://www.abaltra.me), don't judge it too hard please.
+
+![Cover the pain with memes. Never fails.](/assets/images/2020-06-12/gdesign.png){: .center-image }
+
+Our project will have 2 folders in the root: `site/` and `terraform/`. We'll structure the folder for the site in the following way inside the `site/` folder: `png/`, `pdf/`, `css/`, `js/`, `ico/` and in the root, there's only the `index.html`. There's a reason for this, but we'll get into it later. The contents of the site don't really matter for this tutorial, but here's a capture of how my structure looks after everything we've mentioned:
+
+![VSCode's color scheme is fantastic btw](/assets/images/2020-06-12/tree.png){: .center-image }
+
 Now that we have our site setup, let's start creating the terraform entry for it. The first thing we'll want to tackle is the S3 bucket, since that's where everything else links back to. The configuration to host a static website in it is pretty straightforward:
 
 {% highlight terraform %}
@@ -110,12 +115,22 @@ resource "aws_s3_bucket_object" "static" {
 {% endhighlight %}
 
 
-If you look at lines 29 forward, that's all to be able to upload files using terraform. Starting with version 0.12 you can use the for_each operator, which will let us handle file uploads easily along with our infrastructure code. And in here comes one of the caveats. Remember the file structure that basically had a folder per file type? Here's the reason: Terraform can't infer the content_type of files when it's uploading, so it assumes everything's an octet-stream. This can be a problem because browsers won't display your data, but will rather try to download it which is rarely what we want our website to do. Treating each upload like this, while more verbose, lets us handle everything with the same tool and in the same process.
+If you look at lines 29 forward, that's all to be able to upload files using terraform. [Starting with version 0.12](https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each/) you can use the `for_each` operator, which will let us handle file uploads easily along with our infrastructure code. And in here comes one of the caveats. Remember the file structure that basically had a folder per file type? Here's the reason: Terraform can't infer the `content_type` of files when it's uploading, so it assumes everything's an octet-stream. This can be a problem because browsers won't display your data, but will rather try to download it which is rarely what we want our website to do. Treating each upload like this, while more verbose, lets us handle everything with the same tool and in the same process.
+
 Now that the website is up, you can actually visit it immediately. Log into the AWS console and go to S3. You should see a bucket with the name mywebsite.com.
-It's abaltra.me because I used this process for my personal website, but the process is the same for other domains.Click on the Endpoint link, and you should see a hosted version of your site. Step 1 complete!
-Getting a certificate and a domain
-To provide HTTPS support, you'll need a certificate. Custom certificates can get pretty expensive, but what if I told you we can get away with doing it for free? Using Amazon's Certificate Manager, we can use one of Amazon's certificates and get all the benefits of SSL while staying as cheap as possible. Also, we get to do it inside of Terraform, pretty cool right?
-ADD THE GODADDY SECTION
+
+![It's abaltra.me because I used this process for my personal website, but the process is the same for other domains.](/assets/images/2020-06-12/s3.png){: .center-image }
+
+Click on the Endpoint link, and you should see a hosted version of your site. 
+Step 1 complete!
+
+## Getting a certificate and a domain
+
+To provide HTTPS support, you'll need a certificate. Custom certificates [can get pretty expensive](https://www.costevaluation.com/how-much-does-an-ssl-certificate-cost/), but what if I told you we can get away with doing it for free? Using Amazon's Certificate Manager, we can use one of Amazon's certificates and get all the benefits of SSL while staying as cheap as possible. 
+Also, we get to do it inside of Terraform, pretty cool right?
+
+## ADD THE GODADDY SECTION
+
 The code for our certificate is pretty simple:
 
 {% highlight terraform %}
@@ -201,12 +216,19 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 }
 {% endhighlight %}
 
-Once all of the terraform has run, just visit your website in the domain name you bought, or if you want to go straight to the Cloudfront distribution, you can go to AWS and get the url it's using in the Domain Name column. Remember, you can view your website straight from the S3 link, through the Cloudfront Domain Name or through your domain name. Knowing this might can help you eliminate layers of possible problems and narrow down the level you need to work on to solve any issues
+Once all of the terraform has run, just visit your website in the domain name you bought, or if you want to go straight to the Cloudfront distribution, you can go to AWS and get the url it's using in the `Domain Name` column. Remember, you can view your website straight from the S3 link, through the Cloudfront Domain Name or through your domain name. Knowing this might can help you eliminate layers of possible problems and narrow down where you need to work to solve any issues
+
+
 Finally, how much will all of this cost me? Well, for me it looks like this:
-USD$3.5 domain name (USD$19 a year after the first year)
-USD$0 infrastructure.
+
+* USD$3.5 domain name (USD$19 a year after the first year)
+* USD$0 infrastructure.
 
 Wait, what? Yeah, big round $0 (at least as long as the the website doesn't get a ton of traffic, but at that point, I think we could give AWS a little money, right?)
 In case you don't believe me, here's the proof:
-Big fat 0 right thereAWS' infrastructure is fantastic, and with terraform and all the flexibility it offers there really is no reason to not use it (ok, the reason would be "there's no Terraform provider for X, but there is one for most of AWS) and keep all your infrastructure nice and version controlled right alongside your source code.
-Go build something fun!
+
+![Big fat 0 right there.](/assets/images/2020-06-12/billing.png){: .center-image }
+
+AWS' infrastructure is fantastic, and with terraform and all the flexibility it offers there really is no reason to not use it (ok, the reason would be "there's no Terraform provider for X, but there is one for most of AWS) and keep all your infrastructure nice and version controlled right alongside your source code.
+
+**Go build something fun!**
