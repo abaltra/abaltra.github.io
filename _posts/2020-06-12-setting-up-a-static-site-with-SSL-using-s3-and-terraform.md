@@ -8,7 +8,7 @@ Amazon's Simple Storage Service (s3) is probably one of the best, most stable se
 First thing is making sure we have all the tools we need. Make sure you've downloaded Terraform, installed the AWS CLI and set it up correctly. You will also need an AWS account (duh) and a GoDaddy one. If you just want the end result, all the source code is in my Github.
 Now that we have everything we need, let's get our hands dirty.
 I'll use my personal site as a demo, don't judge it too hard please.
-![Cover the pain with memes. Never fails.](assets/images/2020-06-12/gdesign.png)
+![Cover the pain with memes. Never fails.](/assets/images/2020-06-12/gdesign.png)
 
 Cover the pain with memes. Never fails.Our project will have 2 folders in the root: site/ and terraform/. We'll structure the folder for the site in the following way inside the site/ folder: png/, pdf/, css/, js/ ico/ and in the root, there's only the index.html. There's a reason for this, but we'll get into it later. The contents of the site don't really matter for this tutorial, but here's a capture of how my structure looks after everything we've mentioned:
 Now that we have our site setup, let's start creating the terraform entry for it. The first thing we'll want to tackle is the S3 bucket, since that's where everything else links back to. The configuration to host a static website in it is pretty straightforward:
