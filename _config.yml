@@ -1,9 +1,10 @@
 
 title: "abaltra"
 author: "Alejandro Baltra"
-description: "Made with <b style=\"color: #f45;\">&lt;3</b> by <b><a href=\"https://github.com/niklasbuschmann\">@niklasbuschmann</a></b>"
+description: "Sometimes I write stuff. It's not that often though &#1F643;"
 permalink: /:title/
 lang: "en"
+encoding: "utf-8"
 excerpt_separator: "\n\n\n"
 date_format: "%B %d, %Y"
 
