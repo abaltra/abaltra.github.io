@@ -129,8 +129,6 @@ Step 1 complete!
 To provide HTTPS support, you'll need a certificate. Custom certificates [can get pretty expensive](https://www.costevaluation.com/how-much-does-an-ssl-certificate-cost/), but what if I told you we can get away with doing it for free? Using Amazon's Certificate Manager, we can use one of Amazon's certificates and get all the benefits of SSL while staying as cheap as possible. 
 Also, we get to do it inside of Terraform, pretty cool right?
 
-## ADD THE GODADDY SECTION
-
 The code for our certificate is pretty simple:
 
 {% highlight terraform %}
@@ -216,6 +214,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 }
 {% endhighlight %}
 
+## GoDaddy
+
+The only hurdle I couldn't get over was setting up my GoDaddy configuration using Terraform. [There is a provider](https://github.com/n3integration/terraform-godaddy) but was unable to get it to properly setup my configuration. If you manage to get it working, send me a message!
+
 Once all of the terraform has run, just visit your website in the domain name you bought, or if you want to go straight to the Cloudfront distribution, you can go to AWS and get the url it's using in the `Domain Name` column. Remember, you can view your website straight from the S3 link, through the Cloudfront Domain Name or through your domain name. Knowing this might can help you eliminate layers of possible problems and narrow down where you need to work to solve any issues
 
 
@@ -229,6 +231,6 @@ In case you don't believe me, here's the proof:
 
 ![Big fat 0 right there.](/assets/images/2020-06-12/billing.png){: .center-image }
 
-AWS' infrastructure is fantastic, and with terraform and all the flexibility it offers there really is no reason to not use it (ok, the reason would be "there's no Terraform provider for X, but there is one for most of AWS) and keep all your infrastructure nice and version controlled right alongside your source code.
+AWS' infrastructure is fantastic, and with terraform and all the flexibility it offers there really is no reason to not use it (ok, the reason would be "there's no Terraform provider for X", but there is one for most of AWS) and keep all your infrastructure nice and version controlled right alongside your source code.
 
 **Go build something fun!**
