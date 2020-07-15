@@ -26,6 +26,7 @@ navigation:
   - {file: "index.html", icon: home}
 
 external:                    # see http://fontawesome.com/icons
+  - {title: Main Website, icon: user-ninja, url: "https://www.abaltra.me"} 
   - {title: Mail, icon: envelope, url: "mailto:abaltra@gmail.com"}
   - {title: Github, icon: github, url: "https://github.com/abaltra"}
   - {title: Subscribe, icon: rss, url: "/feed.xml"}
